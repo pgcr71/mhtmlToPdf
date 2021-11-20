@@ -1,0 +1,19 @@
+{
+  "name": "mhtmltopdf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hugojosefson/merge-html": "^3.0.0",
+    "html-pdf": "^3.0.1",
+    "html-pdf-node": "^1.0.7",
+    "mhtml2html": "^3.0.0",
+    "pdf-lib": "^1.17.1",
+    "pdf-merger-js": "^3.2.1"
+  }
+}
