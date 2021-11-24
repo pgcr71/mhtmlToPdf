@@ -10,10 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "@hugojosefson/merge-html": "^3.0.0",
+    "@lillallol/outline-pdf": "^4.0.0",
     "html-pdf": "^3.0.1",
     "html-pdf-node": "^1.0.7",
     "mhtml2html": "^3.0.0",
     "pdf-lib": "^1.17.1",
-    "pdf-merger-js": "^3.2.1"
+    "pdf-merger-js": "^3.2.1",
+    "pdfjs": "^2.4.7",
+    "pdfjs-dist": "^2.10.377",
+    "pdfkit": "^0.13.0"
   }
 }
