@@ -81,7 +81,9 @@ async function htmlTOPDf(html, dest) {
   });
 
   await page.evaluate((_) => {
+    console.log(document)
     const summary = document.querySelector(".summary");
+    if(summary) {
     const firstHeaderObj = summary.querySelector("h1");
     const children = [];
 
@@ -101,6 +103,8 @@ async function htmlTOPDf(html, dest) {
       const id = (a?.href || "").split("#")[1];
       a.href = "#" + id;
     });
+
+    }
 
     // return {
     //   chapter: {
@@ -154,24 +158,32 @@ async function convertDirectory(source, destination) {
         await combinePDFs(destinationPath);
         // attachDestinations(destinationPath + '/merged.pdf');
       } else {
-        if (path.extname(entry.name) !== ".mhtml") {
-          continue;
-        }
         let pdfDest = path.join(destination, basename + ".pdf");
         const mhtml = fs.readFileSync(sourcePath, { encoding: "utf8" });
-        try {
-          const htmlobj = mhtml2html.convert(mhtml, {
-            parseDOM: (html) => new JSDOM(html),
-          });
-          const html = htmlobj.serialize();
-          // htmls.push(html)
-          await htmlTOPDf(html, pdfDest);
-        } catch (e) {
-          console.log("error in ", entry.name, e);
-          continue;
+        if (path.extname(entry.name) === ".mhtml") {
+         
+          try {
+            const htmlobj = mhtml2html.convert(mhtml, {
+              parseDOM: (html) => new JSDOM(html),
+            });
+            const html = htmlobj.serialize();
+            await htmlTOPDf(html, pdfDest);
+          } catch (e) {
+            console.log("error in ", entry.name, e);
+          }
+
+        }
+        if (path.extname(entry.name) === ".html") {
+          try {
+            const html = new JSDOM(mhtml).serialize();
+            await htmlTOPDf(html, pdfDest);
+          } catch (e) {
+            console.log("error", e);
+          }
         }
       }
     }
+    await combinePDFs(destination);
   } catch (e) {
     console.log("error occurerd", e);
   }
